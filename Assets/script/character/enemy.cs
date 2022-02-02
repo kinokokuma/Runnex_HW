@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemy : character
 {
-    gameManager manager;
+    private gameManager manager;
 
     public void Start()
     {
@@ -15,6 +15,7 @@ public class enemy : character
         move();
         if (HP <= 0)
         {
+            manager.score += score;
             Destroy(gameObject);
         }
     }
@@ -30,13 +31,13 @@ public class enemy : character
         if (collision.gameObject.tag == "bullet")
         {
             manager = FindObjectOfType<gameManager>();
-            manager.score += score;
+            
             
             HP -= collision.gameObject.GetComponent<bullet>().damage;
             Destroy(collision.gameObject);
 
         }
-        else if ( collision.gameObject.name == "deadZone")
+        if ( collision.gameObject.name == "deadZone")
         {
            
             Destroy(gameObject);
